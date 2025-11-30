@@ -87,14 +87,14 @@ a
 resize to 224px and a center crop of the same dimension. The model was trained for 30 epochs, without early-stopping,
 on a RX 7700S GPU, using ROCm on Fedora. The table below contains the metrics for a few tested models, for comparison.
 
-| Model     | Parameters | Epochs | Accuracy | Precision | Recall | F1  |
-|-----------|------------|--------|----------|-----------|--------|-----|
-| SimpleCNN | 8M         | 30     | 80%      | 81%       | 80%    | 80% |
-| DenseNet  | 8M         | 20     | 95%      | 95%       | 95%    | 95% |
-| DenseNet  | 8M         | 30     | 95%      | 96%       | 95%    | 95% |
-| DenseNet  | 14M        | 30     | 96%      | 97%       | 96%    | 96% |
+| Vision Model | Parameters | Epochs | Accuracy | Precision | Recall | F1  |
+|--------------|------------|--------|----------|-----------|--------|-----|
+| SimpleCNN    | 8M         | 30     | 80%      | 81%       | 80%    | 80% |
+| DenseNet     | 8M         | 20     | 95%      | 95%       | 95%    | 95% |
+| DenseNet     | 8M         | 30     | 95%      | 96%       | 95%    | 95% |
+| DenseNet     | 14M        | 30     | 96%      | 97%       | 96%    | 96% |
 
-For reference, SimpleCNN is an attempt at building my own CNN from scratch, which, all things considered, does not
+For reference, SimpleCNN is an attempt at building my own CNN based model from scratch, which, all things considered, does not
 perform bad as a starting point. However, it does not come close to the accuracy of the pretrained models. Moreover,
 we see very slight improvements between different versions of DenseNet, barely 1% of improvement across all metrics.
 
@@ -108,6 +108,7 @@ melons were mis-classified.
 
 You can build the image using the provided [Dockerfile](Dockerfile) and run the container. Don't forget to add the
 following environment variables:
+
 ```dotenv
 TAVILY_API_KEY='your Tavily key'
 OPENAI_API_KEY='your OpenAI key'
