@@ -17,7 +17,6 @@ export default function App() {
             setError(null);
             setPrediction("");
             setSelectedFile(file);
-            // Create a temporary URL to display the image immediately
             setPreviewUrl(URL.createObjectURL(file));
         }
     };
@@ -46,7 +45,7 @@ export default function App() {
             setPrediction(data.article || data.text || "No content returned.");
 
         } catch (err) {
-            setError((err as {message:string}).message || "Failed to analyze image.");
+            setError((err as { message: string }).message || "Failed to analyze image.");
         } finally {
             setLoading(false);
         }
@@ -60,12 +59,12 @@ export default function App() {
     };
 
     return (
-        <div className="min-h-screen bg-gray-50 text-gray-800 font-sans p-6 md:p-12">
+        <div className="min-h-screen bg-gray-50 font-sans p-6 md:p-12">
             <div className="max-w-6xl mx-auto">
 
                 <header className="mb-10 text-center">
-                    <h1 className="text-4xl font-extrabold text-indigo-900 tracking-tight mb-2">
-                        Plant care instructions
+                    <h1 className="text-4xl font-extrabold text-green-800 tracking-tight mb-2">
+                        Find out how to take care of your plant
                     </h1>
                     <p className="text-gray-500">
                         Upload an image of a plant to find more information about it.
@@ -78,7 +77,7 @@ export default function App() {
                         <div
                             className="h-full min-h-[500px] flex flex-col items-center justify-center p-10 bg-gray-50/50 border-2 border-dashed border-gray-300 m-4 rounded-xl hover:bg-indigo-50/30 transition-colors">
                             <div className="bg-white p-4 rounded-full shadow-sm mb-4">
-                                <Upload className="w-8 h-8 text-indigo-600"/>
+                                <Upload className="w-8 h-8 text-green-600"/>
                             </div>
                             <h3 className="text-xl font-semibold text-gray-700 mb-2">Upload your image</h3>
                             <p className="text-gray-400 mb-6 text-center max-w-xs">
@@ -86,7 +85,7 @@ export default function App() {
                                 the plant.
                             </p>
                             <label
-                                className="cursor-pointer bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-lg font-medium transition-all shadow-md hover:shadow-lg transform active:scale-95">
+                                className="cursor-pointer bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-medium transition-all shadow-md hover:shadow-lg transform active:scale-95">
                                 <span>Select Image</span>
                                 <input
                                     type="file"
@@ -115,7 +114,7 @@ export default function App() {
                                         {!prediction && !loading && (
                                             <button
                                                 onClick={handleSubmit}
-                                                className="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white py-3 px-4 rounded-lg font-semibold shadow-sm transition-all flex items-center justify-center gap-2"
+                                                className="flex-1 bg-green-600 hover:bg-green-700 text-white py-3 px-4 rounded-lg font-semibold shadow-sm transition-all flex items-center justify-center gap-2"
                                             >
                                                 <RefreshCw className="w-4 h-4"/>
                                                 Generate Article
@@ -137,10 +136,8 @@ export default function App() {
                                 {loading && (
                                     <div
                                         className="h-full flex flex-col items-center justify-center text-center min-h-[300px]">
-                                        <Loader2 className="w-12 h-12 text-indigo-600 animate-spin mb-4"/>
+                                        <Loader2 className="w-12 h-12 text-green-600 animate-spin mb-4"/>
                                         <h3 className="text-lg font-semibold text-gray-800">Analyzing image...</h3>
-                                        <p className="text-gray-400 mt-2">Running CNN Model • Searching Tavily •
-                                            Generating Text</p>
                                     </div>
                                 )}
 
