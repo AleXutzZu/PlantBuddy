@@ -33,7 +33,7 @@ personalized article on how to keep it thriving.
 |:--------------------------------------|:---------------------------------------------------------------------------------------------------------|
 | **FastAPI**                           | High-performance, easy-to-use Python web framework.                                                      |
 | **LangGraph**                         | Orchestrates the multi-step AI workflow (prediction, search, retrieval, generation).                     |
-| **DenseNet (via PyTorch/TensorFlow)** | Convolutional Neural Network used for initial plant image classification (transfer learning applied).    |
+| **DenseNet (via PyTorch)**            | Convolutional Neural Network used for initial plant image classification (transfer learning applied).    |
 | **Tavily**                            | Tool for real-time, focused web searches to gather current care tips.                                    |
 | **LanceDB**                           | Embedded vector database used to store and quickly retrieve curated, high-quality care information.      |
 | **OpenAI API**                        | The Large Language Model (LLM) used to structure the web searches and write the final, polished article. |
