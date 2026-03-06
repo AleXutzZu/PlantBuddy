@@ -8,9 +8,8 @@ personalized article on how to keep it thriving.
 
 * **📷 Image-to-Care Conversion:** Upload a photo and receive an in-depth care article.
 * **🌿 AI-Powered Identification:** Uses a fine-tuned **DenseNet CNN** for accurate plant classification.
-* **🧠 LLM-Driven Content:** The final article is expertly written by **OpenAI's LLM**.
-* **🌐 Comprehensive Information Retrieval:** Combines real-time web searches (via **Tavily**) and curated knowledge from
-  a local **LanceDB** vector store to ground the LLM's output.
+* **🧠 LLM-Driven Content:** The final article is expertly written by **Ollama's Llama 3 model**.
+* **🌐 Comprehensive Information Retrieval:** Uses real-time web searches (via **Tavily**)
 * **💻 Modern Stack:** Built with a slick **React** and **Tailwind CSS** frontend, powered by a robust **FastAPI**
   backend.
 * **⚙️ Advanced Workflow:** Leverages a **LangGraph** pipeline for structured information gathering and
@@ -29,15 +28,14 @@ personalized article on how to keep it thriving.
 
 ### Backend (Server & AI)
 
-| Technology                            | Description                                                                                              |
-|:--------------------------------------|:---------------------------------------------------------------------------------------------------------|
-| **FastAPI**                           | High-performance, easy-to-use Python web framework.                                                      |
-| **LangGraph**                         | Orchestrates the multi-step AI workflow (prediction, search, retrieval, generation).                     |
-| **DenseNet (via PyTorch)**            | Convolutional Neural Network used for initial plant image classification (transfer learning applied).    |
-| **Tavily**                            | Tool for real-time, focused web searches to gather current care tips.                                    |
-| **LanceDB**                           | Embedded vector database used to store and quickly retrieve curated, high-quality care information.      |
-| **OpenAI API**                        | The Large Language Model (LLM) used to structure the web searches and write the final, polished article. |
-| **Pydantic**                          | Ensures data validation and structures the JSON output before final article generation.                  |
+| Technology                 | Description                                                                                              |
+|:---------------------------|:---------------------------------------------------------------------------------------------------------|
+| **FastAPI**                | High-performance, easy-to-use Python web framework.                                                      |
+| **LangGraph**              | Orchestrates the multi-step AI workflow (prediction, search, retrieval, generation).                     |
+| **DenseNet (via PyTorch)** | Convolutional Neural Network used for initial plant image classification (transfer learning applied).    |
+| **Tavily**                 | Tool for real-time, focused web searches to gather current care tips.                                    |
+| **Ollama API**             | The Large Language Model (LLM) used to structure the web searches and write the final, polished article. |
+| **Pydantic**               | Ensures data validation and structures the JSON output before final article generation.                  |
 
 ---
 
@@ -57,19 +55,14 @@ capabilities of modern LLMs.
     * **Action:** Executes a targeted web search using **Tavily** to gather current and diverse information, especially
       for less common facts or recent tips.
 
-3. **Vector Store Node (LanceDB):**
-    * **Input:** Plant species name.
-    * **Action:** Performs a similarity search on the local LanceDB vector store to retrieve high-quality,
-      pre-vetted care guides and data points (part of a Retrieval-Augmented Generation (RAG) approach).
-
 4. **Structure Node (JSON Formatter):**
-    * **Input:** All information from the Prediction, Web Search, and Vector Store nodes.
+    * **Input:** All information from the Prediction and Web Search nodes.
     * **Action:** Structures all raw information into a standardized JSON format (using a specific Pydantic schema) to
       serve as the context/prompt for the LLM.
 
-5. **Article Generation Node (The Writer - OpenAI LLM):**
+5. **Article Generation Node (The Writer - Ollama LLM):**
     * **Input:** Structured JSON data (The Context).
-    * **Action:** Passes the context to the OpenAI LLM (GPT-4o-mini) which writes a complete, well-formatted, and
+    * **Action:** Passes the context to the Ollama LLM (Lamma3) which writes a complete, well-formatted, and
       user-friendly article on the plant's care, ready to be returned to the user.
 
 ---
@@ -106,10 +99,12 @@ melons were mis-classified.
 
 ## Deployment / Running
 
-You can build the image using the provided [Dockerfile](Dockerfile) and run the container. Don't forget to add the
+You can find a [docker compose](docker-compose.yaml) file to be used for running the webserver and the Ollama container.
+The sample compose file uses an external volume on which the desired LLM model was downloaded beforehand.
+
+Alternatively, you can build the webserver image using the provided [Dockerfile](Dockerfile) and run just the webserver. Don't forget to add the
 following environment variables:
 
 ```dotenv
 TAVILY_API_KEY='your Tavily key'
-OPENAI_API_KEY='your OpenAI key'
 ```
