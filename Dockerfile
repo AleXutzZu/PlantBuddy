@@ -1,6 +1,5 @@
 FROM node:18-alpine AS react_builder
 
-
 WORKDIR /app
 
 COPY frontend/package*.json ./
@@ -10,13 +9,15 @@ COPY frontend/ ./
 RUN npm run build
 
 
-FROM python:3.14 AS runner
+FROM python:3.12-slim AS runner
 
 WORKDIR /app
 
 COPY server/requirements.txt .
 
-RUN pip install --upgrade -r requirements.txt
+RUN pip install --no-cache-dir --upgrade pip && \
+    pip install --no-cache-dir torch==2.9.0 torchvision==0.24.0 --index-url https://download.pytorch.org/whl/cpu && \
+    pip install --no-cache-dir -r requirements.txt
 
 COPY server/ ./server/
 COPY resources/ ./resources/
