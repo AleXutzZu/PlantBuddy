@@ -3,15 +3,11 @@ from server.model.PlantCareCard import PlantCareCard
 
 STRUCTURE_PROMPT_TEMPLATE = """
 You are a botanical research assistant. A user wants to know about a specific plant.
-You have been given a list of search results from the internet and also information that you already know and trust.
+You have been given a list of search results from the internet.
 
 Your *only* job is to parse this information and extract the data to perfectly populate the `PlantCareCard` schema.
-Do not add any conversational text. Do not make up information. Where there might be a conflict, rely on the internal knowledge you have.
-Also use internal knowledge to fill whatever you cannot fill, if the information you have is suitable.
+Do not add any conversational text. Do not make up information.
 If some information is missing (e.g., "vase_type"), use `None` if the schema allows it, or do your best to infer a sensible default (e.g., "Standard pot" for `vase_type` if it's a common houseplant).
-
-Internal Knowledge:
-{internal_knowledge}
 
 Search Results:
 {web_knowledge}
@@ -38,16 +34,16 @@ Here is the data card:
 from langchain_core.messages import SystemMessage, HumanMessage
 
 
-def retrieve_internal_node(state, config):
-    vector_store = config["configurable"]["vector_store"]
-    prediction = state["plant_name"]
-
-
-    docs = vector_store.similarity_search(prediction, k=2)
-
-    knowledge_text = "\n".join([d.page_content for d in docs])
-
-    return {"internal_knowledge": knowledge_text}
+# def retrieve_internal_node(state, config):
+#     vector_store = config["configurable"]["vector_store"]
+#     prediction = state["plant_name"]
+#
+#
+#     docs = vector_store.similarity_search(prediction, k=2)
+#
+#     knowledge_text = "\n".join([d.page_content for d in docs])
+#
+#     return {"internal_knowledge": knowledge_text}
 
 
 def predict_node(state: AgentState, config):

@@ -7,15 +7,14 @@ from fastapi.params import Depends
 from starlette.responses import FileResponse
 from starlette.staticfiles import StaticFiles
 
-from server.service.dependencies import get_llm, get_tavily, get_predictor, get_workflow, get_vector_store
+from server.service.dependencies import get_llm, get_tavily, get_predictor, get_workflow
 
 app = FastAPI()
 
 
 @app.post("/api/predict")
 async def predict(image: UploadFile, llm=Depends(get_llm), tavily=Depends(get_tavily),
-                  predictor=Depends(get_predictor), workflow=Depends(get_workflow),
-                  vector_store=Depends(get_vector_store)):
+                  predictor=Depends(get_predictor), workflow=Depends(get_workflow)):
     contents = await image.read()
 
     img = Image.open(io.BytesIO(contents)).convert("RGB")
@@ -27,7 +26,6 @@ async def predict(image: UploadFile, llm=Depends(get_llm), tavily=Depends(get_ta
                 "llm": llm,
                 "tavily": tavily,
                 "predictor": predictor,
-                "vector_store": vector_store,
             }
         }
     )

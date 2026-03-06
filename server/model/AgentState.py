@@ -11,4 +11,4 @@ class AgentState(TypedDict):
     plant_card: Optional[PlantCareCard]
     article: Optional[str]
     web_knowledge: Optional[str]
-    internal_knowledge: Optional[str]
+    # internal_knowledge: Optional[str]
