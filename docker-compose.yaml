@@ -1,0 +1,29 @@
+services:
+  webapp:
+    container_name: web-application
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+
+  llm:
+    devices:
+      - /dev/dri
+      - /dev/kfd
+    container_name: ollama-gpu
+    image: ollama/ollama:rocm
+    security_opt:
+      - "label=disable"
+    environment:
+      - HSA_OVERRIDE_GFX_VERSION=11.0.0
+    ports:
+      - "11434:11434"
+    volumes:
+      - "ollama:/root/.ollama"
+
+volumes:
+  ollama:
+    external: true
